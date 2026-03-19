@@ -145,7 +145,7 @@ export default function HomePage() {
             RENT<span className="text-accent">A-Z</span>
           </div>
           <p className="text-slate-400 text-sm">Rent Anything. Earn From Everything.</p>
-          <p className="text-slate-500 text-xs mt-4">© 2025 RENTA-Z. All rights reserved.</p>
+          <p className="text-slate-500 text-xs mt-4">© 2026 RENTA-Z. All rights reserved.</p>
         </div>
       </footer>
     </div>
