@@ -1,49 +1,10 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  const { data: { user } } = await supabase.auth.getUser();
-
-  // Protected routes
-  const protectedPaths = ["/create", "/bookings", "/profile", "/admin", "/chat"];
-  const isProtected = protectedPaths.some((p) => request.nextUrl.pathname.startsWith(p));
-
-  if (isProtected && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/auth";
-    return NextResponse.redirect(url);
-  }
-
-  if (request.nextUrl.pathname === "/auth" && user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
-  }
-
-  return supabaseResponse;
+  // Let all pages through - auth is handled client-side in each page
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/create/:path*", "/bookings/:path*", "/profile/:path*", "/admin/:path*", "/chat/:path*", "/auth"],
+  matcher: [],
 };
