@@ -23,22 +23,18 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  // Protected routes — redirect to /auth if not logged in
+  // Protected routes
   const protectedPaths = ["/create", "/bookings", "/profile", "/admin", "/chat"];
   const isProtected = protectedPaths.some((p) => request.nextUrl.pathname.startsWith(p));
 
   if (isProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth";
-    url.searchParams.set("redirect", request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 
-  // Redirect logged-in users away from /auth
   if (request.nextUrl.pathname === "/auth" && user) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
