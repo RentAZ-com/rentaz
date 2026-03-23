@@ -8,6 +8,7 @@ import { updateProfile } from "@/services/auth";
 import { useApp } from "@/context/AppContext";
 import ListingCard from "@/components/ListingCard";
 import { BOOKING_STATUSES } from "@/types";
+import EarningsDashboard from "@/components/EarningsDashboard";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function ProfilePage() {
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("listings");
+  const [showEarn, setShowEarn] = useState(false);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({ full_name: "", phone: "", city: "" });
 
@@ -111,7 +113,9 @@ export default function ProfilePage() {
         <div className="flex gap-3 mb-8">
           <button className="btn-outline flex-1 text-sm" onClick={() => setEditing(true)}>✏️ Edit Profile</button>
           <button className="btn-outline flex-1 text-sm" onClick={() => router.push("/admin")}>🛡️ Admin</button>
-          <button className="btn-outline flex-1 text-sm !text-red-500 !border-red-200" onClick={async () => { await signOut(); router.push("/"); }}>Log Out</button>
+          <button className="btn-accent w-full text-sm mb-3" onClick={() => setShowEarn(true)}>💰 View Earnings</button>
+            <EarningsDashboard open={showEarn} onClose={() => setShowEarn(false)} />
+            <button className="btn-outline flex-1 text-sm !text-red-500 !border-red-200" onClick={async () => { await signOut(); router.push("/"); }}>Log Out</button>
         </div>
       )}
 

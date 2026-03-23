@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, signIn, signInWithOTP } from "@/services/auth";
+import SocialAuthButtons from "@/components/SocialAuthButtons";
 import { useApp } from "@/context/AppContext";
 
 export default function AuthPage() {
@@ -55,9 +56,7 @@ export default function AuthPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-navy rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-accent font-extrabold text-xl">RZ</span>
-          </div>
+          <img src="/logo.png" alt="RENTA-Z" className="h-20 object-contain mx-auto mb-4 rounded-2xl" />
           <h1 className="text-2xl font-extrabold text-navy">
             {mode === "login" ? "Welcome Back" : "Create Account"}
           </h1>
@@ -66,7 +65,9 @@ export default function AuthPage() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-surface-border p-6 space-y-4">
+        <SocialAuthButtons />
+
+            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-surface-border p-6 space-y-4">
           {mode === "signup" && (
             <div>
               <label className="block text-sm font-semibold text-slate-600 mb-1">Full Name</label>

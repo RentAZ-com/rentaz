@@ -1,4 +1,5 @@
 "use client";
+import AIPriceBadge from "@/components/AIPriceBadge";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -48,6 +49,7 @@ export default function HomePage() {
       {/* Categories */}
       <section className="page-container py-12">
         <h2 className="text-2xl font-extrabold text-navy mb-8">Browse Categories</h2>
+          <div className="mb-6"><AIPriceBadge currentPrice={100} suggestedPrice={135} variant="banner" /></div>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
           {CATEGORIES.map((cat) => (
             <Link

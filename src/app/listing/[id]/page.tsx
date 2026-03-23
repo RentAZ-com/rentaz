@@ -8,6 +8,9 @@ import { getListingReviews } from "@/services/reviews";
 import { useApp } from "@/context/AppContext";
 import { CATEGORIES, BOOKING_STATUSES } from "@/types";
 import type { Listing, Review } from "@/types";
+import FavoriteButton from "@/components/FavoriteButton";
+import ShareButton from "@/components/ShareButton";
+import AIPriceBadge from "@/components/AIPriceBadge";
 
 export default function ListingDetailPage() {
   const { id } = useParams<{ id: string }>();

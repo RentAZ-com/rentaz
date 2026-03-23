@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { CATEGORIES } from "@/types";
+import FavoriteButton from "@/components/FavoriteButton";
+import ShareButton from "@/components/ShareButton";
+import AIPriceBadge from "@/components/AIPriceBadge";
 
 interface ListingCardProps {
   listing: {
@@ -25,6 +28,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
   return (
     <Link href={`/listing/${listing.id}`} className="card group block">
       <div className="relative aspect-[4/3] overflow-hidden bg-surface-muted">
+              <div className="absolute top-2 right-2 flex gap-1.5 z-10"><FavoriteButton listingId={listing.id} size="sm" /><ShareButton listingId={listing.id} listingTitle={listing.title} price={listing.price_daily} size="sm" /></div>
         {hasImg ? (
           <img
             src={listing.images[0]}
